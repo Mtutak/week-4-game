@@ -1,0 +1,25 @@
+.pick {
+	background-color: red;
+	height:350px;
+	margin:10px;
+}
+
+.chosen {
+	background-color:orange;
+	border:yellow 5px solid;
+}
+
+.enemies {
+	background-color: black;
+
+}
+
+.defender {
+	background-color: purple;
+
+}
+
+.attack {
+	background-color: blue;
+
+}
