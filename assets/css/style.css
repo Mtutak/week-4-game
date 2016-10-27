@@ -7,10 +7,14 @@
 .chosen {
 	background-color:orange;
 	border:yellow 5px solid;
+	height:350px;
+	margin:10px;
 }
 
 .enemies {
 	background-color: black;
+	height:350px;
+	margin:10px;
 
 }
 
