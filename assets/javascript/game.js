@@ -9,6 +9,7 @@ var enemyClick = 0;
 var attack = 0;
 var character;
 var defender;
+var win = 0;
 
 //Character Objects
 var currentTarget = {};
@@ -89,7 +90,7 @@ $('.pick').click(function(event){
 		//prevent attack button from counting until defender has been selected
 		if ($('div').hasClass('defender')) {
 			attack++;
-			attackToHealth()
+			attackToHealth();
 			console.log('attack ' + attack);
 			//Print Game Info, currently using temporary place holders 
 			$('#gameInfo').html("You attacked " + defender +" for " + charTarget.attack+". " + 
@@ -97,7 +98,15 @@ $('.pick').click(function(event){
 			}else{
 				alert("Pick a Defender!");
 			}
-
+		if(currentTarget.health <= 0){
+			$('#' + defender).remove();
+			win++;
+			attack = 0;
+			enemyClick = 0;
+			}
+		if (win === 2){
+			winner();
+		}
 
 	});
 
@@ -128,8 +137,10 @@ $('.pick').click(function(event){
 	function attackToHealth(){
 		charTarget.attack = (charTarget.attack * attack);
 		currentTarget.health = currentTarget.health - charTarget.attack;
-		charTarget.health = charTarget.health - (currentTarget.counter);
-
+		charTarget.health = charTarget.health - currentTarget.counter;
+		$("#" + character).html("<span> HP: "+ charTarget.health + "</span>")
+		$("#" + defender).html("<span> HP: "+ currentTarget.health + "</span>")
+		
 	}
 
 	function gameReset(){
@@ -137,15 +148,16 @@ $('.pick').click(function(event){
 	};
 
 	function winner(){
+		alert("You Won!");
 
 	};
 
 	function loser(){
 		//Temporary place holder until character variable is tied to object
-		if(characterTwo.health >= 0){
+		if(charTarget.health >= 0){
 		alert("You Lost!")
 		};
-		$('#pickHeading').prepend('Pick Your Character');
+		gameReset();
 
 	};
 
