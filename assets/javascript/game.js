@@ -71,6 +71,9 @@ $('.pick').click(function(event){
 	//need to add if to start counter when ready and tie variables to character object
 		attack++;
 		console.log('attack ' + attack);
+		//Print Game Info
+		$('#gameInfo').prepend("You attacked " + defender+" for " +characterOne.attack+". " + 
+		defender +" attacked you back for "+ characterTwo.attack +".")
 		
 	});
 
