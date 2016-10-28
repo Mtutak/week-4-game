@@ -1,6 +1,6 @@
 //DragonBall Musi
 var audioElement = $('<audio />');
-      audioElement.attr('src', 'assets/audio/audioname.mp3');
+      audioElement.attr('src', 'assets/audio/Dragontheme.mp3');
 
 
 //Global Variables
@@ -11,26 +11,23 @@ var character;
 var defender;
 
 //Character Objects
+var currentTarget = {};
+var charTarget = {};
+
 var characterOne = {
 	health:100, 
 	attack: 10,
-	counter: function(){
-
-	}
+	counter: 10
 };
 var characterTwo = {
 	health:100, 
 	attack:10,
-	counter: function(){
-		
-	}
+	counter: 10
 };
 var characterThree = {
 	health:100, 
 	attack:10,
-	counter: function(){
-		
-	}
+	counter: 10
 };
 
 //Prints HP of Charcter to appropriate location
@@ -50,7 +47,7 @@ $(document).ready(function () {
 	$(".pauseButton").on("click", function(){
         		audioElement.pause();
 			});
-
+	// characterBio();
 //Player Chooses Character With Click
 $('.pick').click(function(event){
 	//increment clicks variable
@@ -61,7 +58,7 @@ $('.pick').click(function(event){
 		$(this).addClass('chosen').appendTo('.characterRow').removeClass('pick');
 		//identify character clicked id and storing in character variable
 		character = event.target.id;
-		console.log(character);
+		console.log('Character Name: '+ character);
 		$('#pickHeading').empty();
 	 }
 	//searching within parent element for chosen class if true then
@@ -75,10 +72,12 @@ $('.pick').click(function(event){
 					if (enemyClick<2){
 					//identify defender clicked id and storing in character variable
 						defender = event.target.id;
-						console.log('Enemies Chosen' + enemyClick);
-						console.log(defender);
+						console.log('Number of Enemies Chosen ' + enemyClick);
+						console.log('Defender Name: ' + defender);
 						$(this).addClass('defender').appendTo('.defenderRow');
 					}
+					divCharToObject();
+					divDefenderToObject();
 			});
 		}
 });
@@ -90,21 +89,47 @@ $('.pick').click(function(event){
 		//prevent attack button from counting until defender has been selected
 		if ($('div').hasClass('defender')) {
 			attack++;
+			attackToHealth()
 			console.log('attack ' + attack);
-			//Print Game Info, currently using temporary place holders
-			$('#gameInfo').prepend("You attacked " + defender+" for " +characterOne.attack+". " + 
-			defender +" attacked you back for "+ characterTwo.attack +".")
+			//Print Game Info, currently using temporary place holders 
+			$('#gameInfo').html("You attacked " + defender +" for " + charTarget.attack+". " + 
+			defender +" attacked you back for "+ currentTarget.counter +".")
 			}else{
 				alert("Pick a Defender!");
 			}
+
+
 	});
 
-	//Attempting to tie event target variable to Object
-	function divToObject(){
-		if (defender="characterOne"){
-			defender = characterOne;
-			console.log(characterOne);
-		}else if((defender="characterTwo")){}
+	//Tie event target variable to Object
+	function divDefenderToObject() {
+		if (defender === "characterOne"){
+			currentTarget = characterOne;
+		}else if(defender === "characterTwo"){
+			currentTarget = characterTwo;
+		}else if (defender === "characterThree"){
+			currentTarget = characterThree;
+		}
+		console.log("current target: " + currentTarget.health);
+	}
+
+	function divCharToObject(){
+		if (character === "characterOne"){
+			charTarget = characterOne;
+		}else if(character === "characterTwo"){
+			charTarget = characterTwo;
+		}else if (character === "characterThree"){
+			charTarget = characterThree;
+		}
+		console.log("character: " + charTarget.health);
+
+	}
+
+	function attackToHealth(){
+		charTarget.attack = (charTarget.attack * attack);
+		currentTarget.health = currentTarget.health - charTarget.attack;
+		charTarget.health = charTarget.health - (currentTarget.counter);
+
 	}
 
 	function gameReset(){
@@ -125,7 +150,11 @@ $('.pick').click(function(event){
 	};
 
 	function characterBio(){
-
+		$('.fighter').hover(function(){
+			$(this).find('.about').show();
+		}, function(){
+			$(this).find('.about').hide();
+		});
 	}
 
 	function animateAttack(){
