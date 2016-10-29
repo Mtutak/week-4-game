@@ -6,7 +6,7 @@
 //Global Variables
 var clicks = 0;
 var enemyClick = 0;
-var attack = 0;
+var attackMain = 0;
 var character;
 var defender;
 var win = 0;
@@ -19,20 +19,21 @@ var charTarget = {};
 var characterOne = {
 	name: "Goku",
 	health:100, 
-	attack: 10,
-	counter: 10
+	attack: 7,
+		
+	counter: 20
 };
 var characterTwo = {
 	name: "Cell",
 	health:100, 
-	attack:10,
-	counter: 10
+	attack: 6,
+	counter: 30
 };
 var characterThree = {
 	name:"Vegeta",
 	health:100, 
-	attack:10,
-	counter: 10
+	attack: 10,
+	counter: 15
 };
 
 
@@ -90,12 +91,12 @@ $('.pick').click(function(event){
 	//need to tie div variables to character objects
 		//prevent attack button from counting until defender has been selected
 		if ($('div').hasClass('defender')) {
-			attack++;
+			attackMain++;
 			count++;
 			attackToHealth();
-			console.log('attack ' + attack);
+			console.log('attack ' + attackMain);
 			//Print Game Info, currently using temporary place holders 
-			$('#gameInfo').html("You attacked " + currentTarget.name +" for " + charTarget.attack+". " + 
+			$('#gameInfo').html("You attacked " + currentTarget.name +" for " + (charTarget.attack * attackMain)+". " + 
 			currentTarget.name +" attacked you back for "+ currentTarget.counter +".")
 			}else{
 				alert("Pick a Defender!");
@@ -103,12 +104,16 @@ $('.pick').click(function(event){
 		if(currentTarget.health <= 0){
 			$('#' + defender).remove();
 			win++;
-			attack = 0;
+			attackMain = 0;
 			enemyClick = 0;
 			}
 		if (win === 2){
 			winner();
 		}
+		if(charTarget.health <= 0){
+		alert("You Lost!")
+		gameReset();
+		};
 
 	});
 
@@ -137,9 +142,8 @@ $('.pick').click(function(event){
 	}
 
 	function attackToHealth(){
-		
-		charTarget.attack = (charTarget.attack * attack);
-		currentTarget.health = currentTarget.health - charTarget.attack;
+
+		currentTarget.health = currentTarget.health - (charTarget.attack*attackMain);
 		charTarget.health = charTarget.health - currentTarget.counter;
 		var charLink = "#" + character;
 		var defLink = "#" + defender;
@@ -161,7 +165,7 @@ $('.pick').click(function(event){
 		$('#characterThree').removeClass('chosen').appendTo('.main').addClass('pick');
 		 clicks = 0;
 		 enemyClick = 0;
-		 attack = 0;
+		 attackMain = 0;
 		 character;
 		 defender;
 		 win = 0;
@@ -173,14 +177,7 @@ $('.pick').click(function(event){
 
 	};
 
-	function loser(){
-		//Temporary place holder until character variable is tied to object
-		if(charTarget.health >= 0){
-		alert("You Lost!")
-		};
-		gameReset();
-
-	};
+	
 
 	function characterBio(){
 		$('.fighter').hover(function(){
