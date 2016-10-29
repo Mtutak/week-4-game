@@ -10,6 +10,7 @@ var attack = 0;
 var character;
 var defender;
 var win = 0;
+var count = 0;
 
 //Character Objects
 var currentTarget = {};
@@ -34,10 +35,7 @@ var characterThree = {
 	counter: 10
 };
 
-//Prints HP of Charcter to appropriate location
-$("#HP1").html("<span class=hp1> HP: "+ characterOne.health + "</span>")
-$("#HP2").html("<span class=hp1> HP: "+ characterTwo.health + "</span>")
-$("#HP3").html("<span class=hp1> HP: "+ characterThree.health + "</span>")
+
 
 //Make sure HTML has loaded to page
 $(document).ready(function () {
@@ -93,6 +91,7 @@ $('.pick').click(function(event){
 		//prevent attack button from counting until defender has been selected
 		if ($('div').hasClass('defender')) {
 			attack++;
+			count++;
 			attackToHealth();
 			console.log('attack ' + attack);
 			//Print Game Info, currently using temporary place holders 
@@ -138,12 +137,21 @@ $('.pick').click(function(event){
 	}
 
 	function attackToHealth(){
+		
 		charTarget.attack = (charTarget.attack * attack);
 		currentTarget.health = currentTarget.health - charTarget.attack;
 		charTarget.health = charTarget.health - currentTarget.counter;
-		$("#" + character).append("<span id=hp> HP After Attack: "+ charTarget.health + "</span>");
-		$("#" + defender).append("<span id=hp> HP After Attack: "+ currentTarget.health + "</span>");
-		
+		var charLink = "#" + character;
+		var defLink = "#" + defender;
+
+		if(count<2){
+			$(charLink).append("<span id=hp1> HP After Attack: "+ charTarget.health + "</span>");
+			$(defLink).append("<span id=hp2> HP After Attack: "+ currentTarget.health + "</span>");
+		}else {
+			$("#hp1").html("<span id=hp3> HP After Attack: "+ charTarget.health + "</span>");
+			$("#hp2").html("<span id=hp4> HP After Attack: "+ charTarget.health + "</span>");
+		}
+
 	}
 
 	function gameReset(){
