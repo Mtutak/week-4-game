@@ -1,20 +1,78 @@
+@font-face {
+	font-family:"Saiyan Sans";
+	src: url("../font/Saiyan-Sans.ttf");
+}
+
+h1 {
+	text-align: center;
+}
+
+h1, h2 {
+	font-family: "Saiyan Sans";
+}
+
+* {
+	font-family: "Saiyan Sans", sans-serif;
+}
+
+h3 {
+	background-color: rgba(255,255,255,0.85);
+	margin:0 auto;
+	text-align: center;
+}
+
+#HP1, #HP2, #HP3 {
+	color:white;
+}
+
+.player {
+	width:225px;
+	margin:0 auto;
+}
+
+#attack {
+	background-color: red;
+	color:white;
+	width:100px;
+	display:inline-block;
+	text-align: center;
+	margin: 0 auto;
+}
+#ball {
+	width:60px;
+}
+
+#red {
+	color:#E60012;
+	border-color: black;
+	border-width: 5px;
+}
+
+#yellow {
+	color:#F4D900;
+	border-color: black;
+	border-width: 5px;
+}
+
+.jumbotron {
+	background-image: url('../images/headerbg.jpg') !important;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
 .pick {
 	background-color: red;
-	height:350px;
-	margin:10px;
+	
 }
 
 .chosen {
 	background-color:orange;
 	border:yellow 5px solid;
-	height:350px;
-	margin:10px;
+	
 }
 
 .enemies {
 	background-color: black;
-	height:350px;
-	margin:10px;
+	
 
 }
 
@@ -30,4 +88,11 @@
 
 .about {
 	display:none;
+}
+
+#characterOne, #characterTwo, #characterThree {
+	width:275px;
+	margin: 10px;
+	display:inline-block;
+	text-align: center;
 }

@@ -1,6 +1,6 @@
-//DragonBall Musi
-var audioElement = $('<audio />');
-      audioElement.attr('src', 'assets/audio/Dragontheme.mp3');
+//DragonBall Music
+// var audioElement = $('<audio />');
+//       audioElement.attr('src', 'assets/audio/Dragontheme.mp3');
 
 
 //Global Variables
@@ -41,13 +41,13 @@ $(document).ready(function () {
 	console.log('Game is ready to begin');
 	// setTimeout(function(){
 	// })
-	audioElement.animate({volume:  0.4}, 1500);
-	$(".themeButton").on("click", function(){
-        		audioElement.play();
-			});
-	$(".pauseButton").on("click", function(){
-        		audioElement.pause();
-			});
+	// audioElement.animate({volume:  0.4}, 1500);
+	// $(".themeButton").on("click", function(){
+ //        		audioElement.play();
+	// 		});
+	// $(".pauseButton").on("click", function(){
+ //        		audioElement.pause();
+	// 		});
 	// characterBio();
 //Player Chooses Character With Click
 $('.pick').click(function(event){
@@ -145,10 +145,20 @@ $('.pick').click(function(event){
 
 	function gameReset(){
 		$('#pickHeading').prepend('Pick Your Character');
+		$('#characterOne').removeClass('chosen').appendTo('.main').addClass('pick');
+		$('#characterTwo').removeClass('chosen').appendTo('.main').addClass('pick');
+		$('#characterThree').removeClass('chosen').appendTo('.main').addClass('pick');
+		 clicks = 0;
+		 enemyClick = 0;
+		 attack = 0;
+		 character;
+		 defender;
+		 win = 0;
 	};
 
 	function winner(){
 		alert("You Won!");
+		gameReset();
 
 	};
 
@@ -161,24 +171,24 @@ $('.pick').click(function(event){
 
 	};
 
-	function characterBio(){
-		$('.fighter').hover(function(){
-			$(this).find('.about').show();
-		}, function(){
-			$(this).find('.about').hide();
-		});
-	}
+	// function characterBio(){
+	// 	$('.fighter').hover(function(){
+	// 		$(this).find('.about').show();
+	// 	}, function(){
+	// 		$(this).find('.about').hide();
+	// 	});
+	// }
 
-	function animateAttack(){
-		var basePath = "assets/audio/";
-		var soundEffects = ["audio1.mp3"];
-		$('#attack').click(function(){
-			for(i=0; i<soundEffects.length; i++){
-			var a = Math.floor((Math.random()*soundEffects.length));
-			new Audio(basePath + soundEffects[a]).play();
+	// function animateAttack(){
+	// 	var basePath = "assets/audio/";
+	// 	var soundEffects = ["audio1.mp3"];
+	// 	$('#attack').click(function(){
+	// 		for(i=0; i<soundEffects.length; i++){
+	// 		var a = Math.floor((Math.random()*soundEffects.length));
+	// 		new Audio(basePath + soundEffects[a]).play();
 			
-			};
-		});
-	};
+	// 		};
+	// 	});
+	// };
 });
 
