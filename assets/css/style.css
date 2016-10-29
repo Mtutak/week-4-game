@@ -88,6 +88,11 @@ h3 {
 
 .about {
 	display:none;
+	color:white;
+}
+
+#hp {
+	color:white;
 }
 
 #characterOne, #characterTwo, #characterThree {

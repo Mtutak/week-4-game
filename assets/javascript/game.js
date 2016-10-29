@@ -16,25 +16,28 @@ var currentTarget = {};
 var charTarget = {};
 
 var characterOne = {
+	name: "Goku",
 	health:100, 
 	attack: 10,
 	counter: 10
 };
 var characterTwo = {
+	name: "Cell",
 	health:100, 
 	attack:10,
 	counter: 10
 };
 var characterThree = {
+	name:"Vegeta",
 	health:100, 
 	attack:10,
 	counter: 10
 };
 
 //Prints HP of Charcter to appropriate location
-$("#HP1").html("<span> HP: "+ characterOne.health + "</span>")
-$("#HP2").html("<span> HP: "+ characterTwo.health + "</span>")
-$("#HP3").html("<span> HP: "+ characterThree.health + "</span>")
+$("#HP1").html("<span class=hp1> HP: "+ characterOne.health + "</span>")
+$("#HP2").html("<span class=hp1> HP: "+ characterTwo.health + "</span>")
+$("#HP3").html("<span class=hp1> HP: "+ characterThree.health + "</span>")
 
 //Make sure HTML has loaded to page
 $(document).ready(function () {
@@ -48,7 +51,7 @@ $(document).ready(function () {
 	// $(".pauseButton").on("click", function(){
  //        		audioElement.pause();
 	// 		});
-	// characterBio();
+	characterBio();
 //Player Chooses Character With Click
 $('.pick').click(function(event){
 	//increment clicks variable
@@ -58,7 +61,7 @@ $('.pick').click(function(event){
 	//event function this applies to div clicked, chaining adding class and removing
 		$(this).addClass('chosen').appendTo('.characterRow').removeClass('pick');
 		//identify character clicked id and storing in character variable
-		character = event.target.id;
+		character = this.id;
 		console.log('Character Name: '+ character);
 		$('#pickHeading').empty();
 	 }
@@ -72,7 +75,7 @@ $('.pick').click(function(event){
 				enemyClick++;
 					if (enemyClick<2){
 					//identify defender clicked id and storing in character variable
-						defender = event.target.id;
+						defender = this.id;
 						console.log('Number of Enemies Chosen ' + enemyClick);
 						console.log('Defender Name: ' + defender);
 						$(this).addClass('defender').appendTo('.defenderRow');
@@ -93,8 +96,8 @@ $('.pick').click(function(event){
 			attackToHealth();
 			console.log('attack ' + attack);
 			//Print Game Info, currently using temporary place holders 
-			$('#gameInfo').html("You attacked " + defender +" for " + charTarget.attack+". " + 
-			defender +" attacked you back for "+ currentTarget.counter +".")
+			$('#gameInfo').html("You attacked " + currentTarget.name +" for " + charTarget.attack+". " + 
+			currentTarget.name +" attacked you back for "+ currentTarget.counter +".")
 			}else{
 				alert("Pick a Defender!");
 			}
@@ -138,8 +141,8 @@ $('.pick').click(function(event){
 		charTarget.attack = (charTarget.attack * attack);
 		currentTarget.health = currentTarget.health - charTarget.attack;
 		charTarget.health = charTarget.health - currentTarget.counter;
-		$("#" + character).html("<span> HP: "+ charTarget.health + "</span>")
-		$("#" + defender).html("<span> HP: "+ currentTarget.health + "</span>")
+		$("#" + character).append("<span id=hp> HP After Attack: "+ charTarget.health + "</span>");
+		$("#" + defender).append("<span id=hp> HP After Attack: "+ currentTarget.health + "</span>");
 		
 	}
 
@@ -171,13 +174,13 @@ $('.pick').click(function(event){
 
 	};
 
-	// function characterBio(){
-	// 	$('.fighter').hover(function(){
-	// 		$(this).find('.about').show();
-	// 	}, function(){
-	// 		$(this).find('.about').hide();
-	// 	});
-	// }
+	function characterBio(){
+		$('.fighter').hover(function(){
+			$(this).find('.about').show();
+		}, function(){
+			$(this).find('.about').hide();
+		});
+	}
 
 	// function animateAttack(){
 	// 	var basePath = "assets/audio/";
